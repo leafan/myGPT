@@ -15,15 +15,18 @@ import math
 #  我们定义一个mini版本的参数
 class GPTConfig:
     # 命名为block_size而不是 sequence_length, 因为这表示最大长度, sequence表示可变长序列
-    block_size: int = 128   # 序列长度, 也就是一次能够处理的输入(逻辑上还包括输出)的token数
-    vocab_size: int = 50304 # GPT2的字典, 核心是英文, 这里不缩小, 直接使用英文data训练
+    block_size: int = 1024   # 序列长度, 也就是一次能够处理的输入(逻辑上还包括输出)的token数
+    vocab_size: int = 50304  # GPT2的字典, 核心是英文, 这里不缩小, 直接使用英文data训练
 
-    n_layer:    int = 4     # transformer 层数, 每多一层就多一个transformer block
-    n_head:     int = 4     # attention头数目, 需要能被 n_embd 整除
-    n_embd:     int = 256   # 特征向量维度, GPT-2默认是768, 越大能够表示的特征能力就越强
+    n_layer:    int = 12     # transformer 层数, 每多一层就多一个transformer block
+    # n_layer:    int = 48
+    n_head:     int = 12     # attention头数目, 需要能被 n_embd 整除
+    # n_head:     int = 25
+    n_embd:     int = 768    # 特征向量维度, GPT-2默认是768, 越大能够表示的特征能力就越强
+    # n_embd:     int = 1600
 
-    dropout:    float = 0.2 # 我们训练样本小, 容易过拟合, 可以启用 dropout
-    bias:       bool = True # 是否使用偏置, 默认启用
+    dropout:    float = 0.2  # 我们训练样本小, 容易过拟合, 可以启用 dropout
+    bias:       bool = True  # 是否使用偏置, 默认启用
 
 # 定义基础模块: 层归一化
 # 核心实现: 通过调整每层神经元的输出分布，使其均值为0、方差为1，从而稳定训练过程

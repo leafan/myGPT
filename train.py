@@ -22,6 +22,18 @@ def train_main():
     print(f"{GREEN}start trainning...{RESET}\n")
     
     model = myGPT().to(device)
+
+    # 打印模型详情
+    print(model)
+    
+    # 打印参数量
+    for name, param in model.named_parameters():
+        print(f"Layer: {name} | Size: {param.size()} | Parameters: {param.numel()}")
+
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"\n\nTotal params: {total_params:,}\n\n")
+
+
     model.train()
 
     # 定义优化器和损失函数
